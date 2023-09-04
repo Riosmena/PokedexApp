@@ -2,8 +2,12 @@ package com.example.kotlin.mypokedexapp
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlin.mypokedexapp.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity: Activity() {
 
@@ -15,7 +19,7 @@ class MainActivity: Activity() {
         super.onCreate(savedInstanceState)
 
         initializeBinding()
-        setUpRecyclerView(testData())
+        getPokemonList()
     }
 
     private fun initializeBinding() {
@@ -23,22 +27,15 @@ class MainActivity: Activity() {
         setContentView(binding.root)
     }
 
-    private fun testData():ArrayList<PokemonBase>{
-        var result = ArrayList<PokemonBase>()
-
-        result.add(PokemonBase("bulbasaur",""))
-        result.add(PokemonBase("charmander",""))
-        result.add(PokemonBase("squirtle",""))
-        result.add(PokemonBase("ninetales",""))
-        result.add(PokemonBase("lucario",""))
-        result.add(PokemonBase("houndoom",""))
-        result.add(PokemonBase("pikachu",""))
-        result.add(PokemonBase("vaporeon",""))
-        result.add(PokemonBase("magikarp",""))
-        result.add(PokemonBase("charizard",""))
-
-        return result
-    }
+    private fun getPokemonList(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val pokemonRepository = PokemonRepository()
+            val result:PokedexObject? = pokemonRepository.getPokemonList(Constants.MAX_POKEMON_NUMBER)
+            Log.d("Salida", result?.count.toString())
+            CoroutineScope(Dispatchers.Main).launch {
+                setUpRecyclerView(result?.results!!)
+            }
+        }}
 
     private fun setUpRecyclerView(dataForList:ArrayList<PokemonBase>){
         binding.RVPokemon.setHasFixedSize(true)
@@ -47,7 +44,7 @@ class MainActivity: Activity() {
             LinearLayoutManager.VERTICAL,
             false)
         binding.RVPokemon.layoutManager = linearLayoutManager
-        adapter.PokemonAdapter(dataForList)
+        adapter.PokemonAdapter(dataForList,this)
         binding.RVPokemon.adapter = adapter
     }
 
