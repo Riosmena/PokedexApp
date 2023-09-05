@@ -1,4 +1,4 @@
-package com.example.kotlin.mypokedexapp.views
+package com.example.kotlin.mypokedexapp.framework.views
 
 import android.app.Activity
 import android.os.Bundle
@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlin.mypokedexapp.utils.Constants
 import com.example.kotlin.mypokedexapp.data.PokemonRepository
-import com.example.kotlin.mypokedexapp.adapters.PokemonAdapter
+import com.example.kotlin.mypokedexapp.framework.adapters.PokemonAdapter
 import com.example.kotlin.mypokedexapp.databinding.ActivityMainBinding
-import com.example.kotlin.mypokedexapp.viewmodel.MainViewModel
+import com.example.kotlin.mypokedexapp.framework.viewmodel.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,10 +1,10 @@
-package com.example.kotlin.mypokedexapp.adapters
+package com.example.kotlin.mypokedexapp.framework.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlin.mypokedexapp.adapters.viewholders.PokemonViewHolder
+import com.example.kotlin.mypokedexapp.framework.adapters.viewholders.PokemonViewHolder
 import com.example.kotlin.mypokedexapp.databinding.ItemPokemonBinding
 
 class PokemonAdapter: RecyclerView.Adapter<PokemonViewHolder>() {
